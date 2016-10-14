@@ -1,6 +1,6 @@
 $:.unshift File.dirname(__FILE__) # allows command line to execute tests
 require 'helper'
-
+require 'pry'
 class MappingTest < Test::Unit::TestCase
 
   context 'a new instance' do
@@ -23,11 +23,11 @@ class MappingTest < Test::Unit::TestCase
     end
 
     should 'map :to property fields' do
-      assert_equal @rate.to_hash['FromZIPCode'], '45440'
-      assert_equal @rate.to_hash['ToZIPCode'], '45458'
-      assert_equal @rate.to_hash['WeightOz'], '7.8'
-      assert_equal @rate.to_hash['PackageType'], 'Package'
-      assert_equal @rate.to_hash['ServiceType'], 'US-PM'
+      assert_equal @rate.to_hash[:FromZIPCode], '45440'
+      assert_equal @rate.to_hash[:ToZIPCode], '45458'
+      assert_equal @rate.to_hash[:WeightOz], '7.8'
+      assert_equal @rate.to_hash[:PackageType], 'Package'
+      assert_equal @rate.to_hash[:ServiceType], 'US-PM'
     end
 
     context 'with add_ons' do
@@ -37,8 +37,8 @@ class MappingTest < Test::Unit::TestCase
           { amount: '3.3', add_on_type: "US-A-SC" }
         ]
         @expected = [
-          { "AddOnType" => "US-A-DC" },
-          { "Amount" => "3.3", "AddOnType" => "US-A-SC" }
+          { :AddOnType => "US-A-DC" },
+          { :Amount => "3.3", :AddOnType => "US-A-SC" }
         ]
       end
 
@@ -49,7 +49,7 @@ class MappingTest < Test::Unit::TestCase
         end
 
         should 'map add_ons to AddOnsV4' do
-          assert_equal @rate.to_hash['AddOns'], { "AddOnV4" => @expected }
+          assert_equal @rate.to_hash[:AddOns], { :AddOnV4 => @expected }
         end
       end
 
@@ -60,7 +60,7 @@ class MappingTest < Test::Unit::TestCase
         end
 
         should 'map add_ons to AddOnsV5' do
-          assert_equal @rate.to_hash['AddOns'], { "AddOnV5" => @expected }
+          assert_equal @rate.to_hash[:AddOns], { :AddOnV5 => @expected }
         end
       end
     end

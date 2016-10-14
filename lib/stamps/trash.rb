@@ -14,7 +14,7 @@ module Hashie
 
     # Sort the hash by the order in which the properties are declared
     def to_hash
-      sorted_keys = self.class.properties.map{|prop| prop.to_s} & self.keys
+      sorted_keys = self.class.properties.map{|prop| prop} & self.keys
 
       # Use active_support for ordering hashes for Ruby < 1.9
       out = RUBY_VERSION >= '1.9' ? {} : ActiveSupport::OrderedHash.new
